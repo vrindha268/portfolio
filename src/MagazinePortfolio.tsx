@@ -4,7 +4,7 @@ import { Newspaper, Code2, Briefcase, BrainCircuit, Terminal, Mail } from 'lucid
 
 const pagesData = [
   { type: 'cover' },
-  { title: 'The Manifesto', content: 'Summary & Philosophy' },
+  { title: "THE LEAD INVESTIGATOR'S DOSSIER", content: 'Summary & Philosophy' },
   { title: 'The Field Report', content: 'Experience & Projects' },
   { title: 'The Blueprint', content: 'Technical Arsenal' },
 ];
@@ -64,20 +64,19 @@ const MagazinePortfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-stone-200 flex items-center justify-center overflow-hidden font-serif">
-      <motion.div 
-        animate={{ x: xShift, scale: fitScale }}
-        initial={{ scale: 0.2, y: '50vh', rotate: -720 }}
-        animate={{ 
-          x: xShift, 
-          y: 0, 
-          rotate: 0, 
-          scale: fitScale,
-          transition: { type: 'spring', damping: 20, stiffness: 60, duration: 1.2 }
-        }}
-        className="relative w-[1600px] h-[1066px] preserve-3d"
-        style={{ perspective: '3000px' }}
-      >
+    <div className="min-h-screen bg-stone-200 flex items-center justify-center overflow-hidden font-serif antialiased [text-rendering:optimizeLegibility]">
+      <div style={{ zoom: fitScale }} className="flex items-center justify-center">
+        <motion.div 
+          initial={{ y: '50vh', rotate: -720 }}
+          animate={{ 
+            x: xShift, 
+            y: 0, 
+            rotate: 0, 
+            transition: { type: 'spring', damping: 20, stiffness: 60, duration: 1.2 }
+          }}
+          className="relative w-[1600px] h-[1066px] preserve-3d"
+          style={{ perspective: '3000px', transformStyle: 'preserve-3d', WebkitFontSmoothing: 'antialiased' }}
+        >
         {/* Render all sheets */}
         {sheets.map((sheet, index) => {
           const isFlipped = currentPage > index;
@@ -92,20 +91,24 @@ const MagazinePortfolio = () => {
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               {/* Front side */}
-              <div className="absolute inset-0 [backface-visibility:hidden] bg-white shadow-[inset_10px_0_20px_rgba(0,0,0,0.05)] border-r border-stone-200">
+              <div 
+                className="absolute inset-0 bg-white shadow-[inset_10px_0_20px_rgba(0,0,0,0.05)] border-r border-stone-200"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+              >
                 {sheet.front}
               </div>
               {/* Back side */}
               <div 
-                className="absolute inset-0 [backface-visibility:hidden] bg-white shadow-[inset_-10px_0_20px_rgba(0,0,0,0.05)] border-l border-stone-200" 
-                style={{ transform: 'rotateY(180deg)' }}
+                className="absolute inset-0 bg-white shadow-[inset_-10px_0_20px_rgba(0,0,0,0.05)] border-l border-stone-200" 
+                style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 {sheet.back}
               </div>
             </motion.div>
           );
         })}
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 };
@@ -190,12 +193,29 @@ const LeftPageContent = ({ pageData, pageNumber }: any) => (
       <div className="space-y-6 text-stone-800 leading-relaxed">
         {pageNumber === 1 && (
           <>
-            <p className="first-letter:text-7xl first-letter:font-black first-letter:mr-3 first-letter:float-left">
-              The summary of a visionary. Balancing the rigid structures of software architecture 
-              with the dynamic flow of project leadership.
+            <div className="border-b-4 border-double border-black pb-4 mb-6">
+              <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">THE MANIFESTO</h3>
+              <p className="font-bold text-sm tracking-widest text-red-700">CLASSIFIED DOSSIER - LEVEL 5 CLEARANCE</p>
+            </div>
+            <p className="font-bold text-lg leading-snug border-l-4 border-black pl-4 mb-6">
+              A record of methodologies, strategic interventions, and the unyielding pursuit of flawless execution.
             </p>
-            <div className="bg-stone-200 p-4 border-l-4 border-red-700 italic">
-              "Logic is the beginning of wisdom, but creativity is the end of the game."
+            <p className="first-letter:text-7xl first-letter:font-black first-letter:mr-3 first-letter:float-left text-justify text-stone-700">
+              Every system has its vulnerabilities. Every architecture has its breaking points. The role of a true engineer is not just to patch the cracks, but to anticipate the earthquake. 
+            </p>
+            <p className="text-justify mt-4 text-stone-700">
+              The pages that follow document a history of taking chaos and transforming it into order. From managing sprawling project backlogs to architecting resilient codebases, this dossier serves as both a testament to past operations and a blueprint for future endeavors.
+            </p>
+            <div className="mt-12 space-y-3 font-mono text-sm border-t-2 border-black pt-4">
+              <div className="flex justify-between border-b border-stone-300 pb-1">
+                <span>Subject:</span> <span className="font-bold text-black">MEENAKSHI KARNATAKA</span>
+              </div>
+              <div className="flex justify-between border-b border-stone-300 pb-1">
+                <span>Designation:</span> <span className="font-bold text-black">LEAD DEV & PM</span>
+              </div>
+              <div className="flex justify-between border-b border-stone-300 pb-1">
+                <span>Status:</span> <span className="font-bold text-red-700">ACTIVE - ASSIGNING NEXT TICKET</span>
+              </div>
             </div>
           </>
         )}
@@ -225,12 +245,145 @@ const RightPageContent = ({ pageData, pageNumber, onNext, onPrev, isLast }: any)
     className="w-full h-full bg-[#f4f1ea] p-12 overflow-hidden flex flex-col justify-between"
     style={{ backgroundImage: 'radial-gradient(#d1d1d1 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }}
   >
-    <div className="prose prose-stone">
+    <div className="prose prose-stone flex-grow flex flex-col">
       <p className="uppercase text-[10px] tracking-widest font-sans font-bold text-stone-500 mb-2">Evidence Folder</p>
-      <div className="h-64 w-full bg-stone-300 border-2 border-dashed border-stone-400 flex items-center justify-center text-stone-500">
-         {/* Replace with your project images */}
-         [Visual Evidence Placeholder]
-      </div>
+      {pageNumber === 1 ? (
+        <>
+          <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-6 shadow-xl shrink-0">
+             <img src="/color_detective_alley.png" alt="Color Noir Detective Lead Investigator" className="absolute inset-0 w-full h-full object-cover object-center" />
+          </div>
+          <div className="flex flex-col justify-between h-full">
+            <div>
+              <h3 className="text-4xl font-black uppercase tracking-tighter mb-3 border-b-4 border-black pb-2 text-black drop-shadow-sm">THE ARCHITECT OF ORDER</h3>
+              <p className="font-bold text-xl leading-snug border-l-4 border-black pl-4 mb-5 text-stone-900 drop-shadow-sm">
+                Tracking the movements of Meenakshi Karnataka—the developer who solves system failures before they become crimes.
+              </p>
+              
+              <div className="text-justify text-lg text-stone-900 font-bold leading-relaxed space-y-4 drop-shadow-sm">
+                <p className="first-letter:text-6xl first-letter:font-black first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] first-letter:text-black">
+                  In a city drowning in chaotic code and unorganized data, one operative stands out. Meenakshi isn't just a developer; she's a forensic specialist for the digital age. 
+                </p>
+                <p>
+                  From the streets of Bhadradri Kothagudem to the high-stakes servers of Lupyd Media, she has made it her mission to hunt down bugs and deploy scalable justice.
+                </p>
+                <p className="mt-4 font-black italic border-l-4 border-stone-500 bg-stone-200 p-4 text-xl shadow-inner">
+                  "She doesn't just write code; she builds ironclad alibis for every application she touches."
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-6 bg-black p-4 border-l-[8px] border-red-700 shadow-xl text-white">
+              <span className="uppercase text-sm font-bold text-red-500 tracking-widest block mb-1">The Summary</span>
+              <span className="font-black italic text-2xl">A NEW PHILOSOPHY OF CODE</span>
+            </div>
+          </div>
+        </>
+      ) : pageNumber === 2 ? (
+        <>
+          <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-6 shadow-xl shrink-0">
+             <img src="/coding_evidence_board.png" alt="Coding Evidence Board" className="absolute inset-0 w-full h-full object-cover object-center" />
+          </div>
+          <div className="flex flex-col flex-grow h-full overflow-hidden">
+            <h3 className="text-4xl font-black uppercase tracking-tighter mb-2 border-b-4 border-black pb-2 text-black drop-shadow-sm">THE EVIDENCE BOARD</h3>
+            <p className="font-bold text-lg uppercase tracking-widest text-red-700 mb-4">WORK EXPERIENCE DOSSIER</p>
+            
+            <div className="space-y-4 text-stone-900 font-medium">
+              {/* Lupyd Media Section */}
+              <div className="bg-stone-200 border-l-[6px] border-black p-4 shadow-md relative">
+                <div className="absolute -left-3 top-4 w-4 h-4 rounded-full bg-red-600 border-2 border-black shadow-sm"></div>
+                <div className="mb-3 border-b-2 border-stone-300 pb-2">
+                  <div className="flex justify-between items-end">
+                    <span className="font-black text-xl uppercase tracking-tighter">Lupyd Media Private Limited</span>
+                    <span className="text-xs font-bold text-stone-600 uppercase">Jan 2025 – Present</span>
+                  </div>
+                  <span className="text-sm font-bold text-red-700 uppercase tracking-widest block mt-1">STATUS: Lead Undercover Intern</span>
+                </div>
+                
+                <ul className="space-y-3 text-[15px] leading-snug pl-2">
+                  <li className="flex gap-2">
+                    <span className="font-black text-black shrink-0">The Surveillance System:</span> 
+                    <span>Deployed a high-speed Notification System using Kafka to track every movement in real-time.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-black text-black shrink-0">The Paper Trail:</span> 
+                    <span>Engineered RESTful APIs and integrated third-party services, ensuring no data packet goes missing.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-black text-black shrink-0">The Clean-Up:</span> 
+                    <span>Optimized database queries and neutralized bugs through rigorous unit testing, leaving the system cleaner than a wiped hard drive.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Indoctrinate & Training Grounds Section */}
+              <div className="bg-stone-200 border-l-[6px] border-black p-4 shadow-md relative mt-4">
+                <div className="absolute -left-3 top-4 w-4 h-4 rounded-full bg-stone-500 border-2 border-black shadow-sm"></div>
+                <div className="mb-3 border-b-2 border-stone-300 pb-2">
+                  <div className="flex justify-between items-end">
+                    <span className="font-black text-xl uppercase tracking-tighter">Indoctrinate & Training Grounds</span>
+                    <span className="text-xs font-bold text-stone-600 uppercase">2022 – 2023</span>
+                  </div>
+                  <span className="text-sm font-bold text-red-700 uppercase tracking-widest block mt-1">STATUS: The Specialist</span>
+                </div>
+                
+                <p className="text-[15px] leading-snug font-bold italic pl-4 border-l-4 border-stone-400">
+                  "Before hitting the big leagues, she trained the next generation of operatives in the Microsoft Office Suite, sharpening their technical edge for the field."
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : pageNumber === 3 ? (
+        <>
+          <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-4 shadow-xl shrink-0">
+             <img src="/tactical_operator.png" alt="Tactical Operations Interface" className="absolute inset-0 w-full h-full object-cover object-center" />
+          </div>
+          <div className="flex flex-col flex-grow h-full overflow-hidden">
+            <h3 className="text-3xl font-black uppercase tracking-tighter mb-1 border-b-4 border-black pb-1 text-black drop-shadow-sm">THE CASE FILES (PROJECTS)</h3>
+            
+            <div className="space-y-3 mt-2 text-stone-900 font-medium">
+              {/* CASE 1 */}
+              <div className="border-l-4 border-red-700 pl-3">
+                <span className="font-black text-black uppercase tracking-wide block">CASE #1: "Find Me" (The Search & Rescue)</span>
+                <p className="text-sm leading-snug"><span className="font-bold text-stone-700">The Mission:</span> Developing a high-stakes Crash Detection Application.</p>
+                <p className="text-sm leading-snug"><span className="font-bold text-stone-700">The Tech:</span> Using a tactical stack of React, Capacitor, and Django to alert family members the moment a signal goes dark.</p>
+              </div>
+
+              {/* CASE 2 */}
+              <div className="border-l-4 border-black pl-3">
+                <span className="font-black text-black uppercase tracking-wide block">CASE #2: "Figo" (The Ticket Syndicate)</span>
+                <p className="text-sm leading-snug"><span className="font-bold text-stone-700">The Mission:</span> Building a seamless booking network using Next.js and Spring to manage the city's movement without a hitch.</p>
+              </div>
+
+              {/* CASE 3 */}
+              <div className="border-l-4 border-black pl-3">
+                <span className="font-black text-black uppercase tracking-wide block">CASE #3: "Weather Today" (The Oracle)</span>
+                <p className="text-sm leading-snug"><span className="font-bold text-stone-700">The Mission:</span> Using Machine Learning (Tensorflow) to predict the unpredictable. She knows when the storm is coming before the first drop hits.</p>
+              </div>
+
+              {/* TACTICAL GEAR */}
+              <div className="mt-3 pt-3 border-t-4 border-dashed border-stone-400 bg-stone-200 p-3 shadow-inner">
+                <p className="font-black text-base uppercase tracking-widest text-red-700 mb-2">The Tactical Gear (Technical Skills)</p>
+                <ul className="text-sm space-y-1">
+                  <li><span className="font-bold text-black">Primary Weapons:</span> TypeScript (React/Next.js), Python (Django), and Java (Spring).</li>
+                  <li><span className="font-bold text-black">Field Equipment:</span> Docker, Git, JIRA, and Trello.</li>
+                  <li><span className="font-bold text-black">Special Ops:</span> Project Management, DevOps, and Team Leadership.</li>
+                  <li><span className="font-bold text-black">Linguistic Encryption:</span> Fluent in English, Hindi, and Telugu.</li>
+                </ul>
+              </div>
+              
+              <p className="mt-2 text-center font-black italic text-base border-y-2 border-black py-2 bg-black text-white shadow-md">
+                "In the world of software, there are no accidents—only undiscovered logic."
+              </p>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="h-64 w-full bg-stone-300 border-2 border-dashed border-stone-400 flex items-center justify-center text-stone-500">
+           {/* Replace with your project images */}
+           [Visual Evidence Placeholder]
+        </div>
+      )}
     </div>
 
     <div className="flex justify-between mt-8 items-end border-t-2 border-black pt-4 text-black">
