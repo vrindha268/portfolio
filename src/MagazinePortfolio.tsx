@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Newspaper, Code2, Briefcase, BrainCircuit, Terminal, Mail } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, Terminal } from 'lucide-react';
 
 const pagesData = [
   { type: 'cover' },
@@ -75,7 +75,7 @@ const MagazinePortfolio = () => {
             transition: { type: 'spring', damping: 20, stiffness: 60, duration: 1.2 }
           }}
           className="relative w-[1600px] h-[1066px] preserve-3d"
-          style={{ perspective: '3000px', transformStyle: 'preserve-3d', WebkitFontSmoothing: 'antialiased' }}
+          style={{ perspective: '3000px', transformStyle: 'preserve-3d' }}
         >
         {/* Render all sheets */}
         {sheets.map((sheet, index) => {
@@ -86,23 +86,29 @@ const MagazinePortfolio = () => {
             <motion.div
               key={index}
               className="absolute top-0 right-0 w-[800px] h-full preserve-3d origin-left"
-              style={{ zIndex }}
+              style={{ zIndex, transformStyle: 'preserve-3d' }}
               animate={{ rotateY: isFlipped ? -180 : 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               {/* Front side */}
               <div 
-                className="absolute inset-0 bg-white shadow-[inset_10px_0_20px_rgba(0,0,0,0.05)] border-r border-stone-200"
-                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                className="absolute inset-0 bg-[#f8f5eb] border-r border-stone-300"
+                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translateZ(1px)' }}
               >
-                {sheet.front}
+                {/* Aged paper texture overlay under the content */}
+                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('/aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/5 via-transparent to-transparent" />
+                <div className="relative z-10 w-full h-full">{sheet.front}</div>
               </div>
               {/* Back side */}
               <div 
-                className="absolute inset-0 bg-white shadow-[inset_-10px_0_20px_rgba(0,0,0,0.05)] border-l border-stone-200" 
-                style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                className="absolute inset-0 bg-[#f8f5eb] border-l border-stone-300" 
+                style={{ transform: 'rotateY(180deg) translateZ(1px)', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
-                {sheet.back}
+                {/* Aged paper texture overlay under the content */}
+                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('/aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-l from-black/5 via-white/20 to-white/40" />
+                <div className="relative z-10 w-full h-full">{sheet.back}</div>
               </div>
             </motion.div>
           );
@@ -115,7 +121,7 @@ const MagazinePortfolio = () => {
 
 /* --- COVER PAGE COMPONENT --- */
 const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
-  <div className="w-full h-full bg-stone-100 border-8 border-double border-stone-800 p-8 flex flex-col justify-between overflow-hidden relative shadow-[10px_0_30px_rgba(0,0,0,0.2)]">
+  <div className="w-full h-full bg-transparent border-8 border-double border-stone-800 p-8 flex flex-col justify-between overflow-hidden relative">
     {/* Hero Background Image */}
     <div 
       className="absolute inset-0 z-0 opacity-70 mix-blend-darken"
@@ -127,9 +133,9 @@ const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
     />
 
     {/* Header */}
-    <div className="text-center border-b-4 border-black pb-4 relative z-10 bg-white/30 backdrop-blur-sm p-4 -mx-4 rounded-xl shadow-sm">
-      <h2 className="text-sm tracking-[0.3em] font-sans font-black uppercase text-black drop-shadow-md">Special Tech Edition 2026</h2>
-      <h1 className="text-8xl font-black uppercase tracking-tighter leading-none mt-2 text-stone-900 drop-shadow-[0_4px_4px_rgba(255,255,255,0.9)]" style={{ WebkitTextStroke: '1px white' }}>THE LOGIC</h1>
+    <div className="text-center border-b-4 border-black pb-4 relative z-10 bg-white/90 p-4 -mx-4 rounded-xl">
+      <h2 className="text-sm tracking-[0.3em] font-sans font-black uppercase text-black">Special Tech Edition 2026</h2>
+      <h1 className="text-8xl font-black uppercase tracking-tighter leading-none mt-2 text-stone-900" style={{ WebkitTextStroke: '1px white' }}>THE LOGIC</h1>
       <div className="flex justify-between items-center mt-2 px-1 italic text-lg border-t border-black bg-white/50 py-1">
         <span className="text-black font-semibold">Vol. 01</span>
         <span className="font-bold text-black">PRICE: 0.00 BTC</span>
@@ -138,12 +144,12 @@ const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
 
     {/* Hero Section */}
     <div className="flex-grow py-8 relative z-10">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-red-600 rounded-full flex items-center justify-center text-white font-bold rotate-12 text-center leading-tight border-4 border-white shadow-lg z-20">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-red-600 rounded-full flex items-center justify-center text-white font-bold rotate-12 text-center leading-tight border-4 border-white z-20">
         NEW DEV <br/> IN CITY!
       </div>
       
-      <div className="border-l-4 border-black pl-6 mt-12 bg-white/40 backdrop-blur-sm py-2 pr-4 rounded-r-xl max-w-lg">
-        <h3 className="text-5xl font-extrabold leading-tight uppercase text-black drop-shadow-md">
+      <div className="border-l-4 border-black pl-6 mt-12 bg-white/90 py-2 pr-4 rounded-r-xl max-w-lg border-y-2 border-r-2">
+        <h3 className="text-5xl font-extrabold leading-tight uppercase text-black">
           Cracking the <span className="text-red-700 underline decoration-double">Code Crime</span>
         </h3>
         <p className="mt-4 text-xl font-medium max-w-md text-stone-900 font-bold">
@@ -164,10 +170,10 @@ const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
     </div>
 
     {/* Footer/CTA */}
-    <div className="border-t-2 border-black pt-4 flex justify-between items-end relative z-10 bg-white/40 backdrop-blur-sm p-4 -mx-4 rounded-xl mt-4">
+    <div className="border-t-2 border-black pt-4 flex justify-between items-end relative z-10 bg-white/90 p-4 -mx-4 rounded-xl mt-4">
       <div className="w-2/3">
-        <p className="text-xs font-sans uppercase font-bold tracking-tighter text-black drop-shadow-sm">Headline Story:</p>
-        <p className="text-2xl font-bold leading-none italic text-black drop-shadow-sm">"How she managed a 500-ticket backlog without breaking a sweat."</p>
+        <p className="text-xs font-sans uppercase font-bold tracking-tighter text-black">Headline Story:</p>
+        <p className="text-2xl font-bold leading-none italic text-black">"How she managed a 500-ticket backlog without breaking a sweat."</p>
       </div>
       <button 
         onClick={onOpen}
@@ -185,8 +191,7 @@ const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
 /* --- LEFT PAGE COMPONENT --- */
 const LeftPageContent = ({ pageData, pageNumber }: any) => (
   <div 
-    className="w-full h-full bg-[#f4f1ea] p-12 overflow-hidden flex flex-col justify-between"
-    style={{ backgroundImage: 'radial-gradient(#d1d1d1 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }}
+    className="w-full h-full bg-transparent p-12 overflow-hidden flex flex-col justify-between"
   >
     <div>
       <h2 className="text-4xl font-black border-b-2 border-black mb-6 uppercase italic">{pageData.title}</h2>
@@ -231,6 +236,27 @@ const LeftPageContent = ({ pageData, pageNumber }: any) => (
              </div>
           </div>
         )}
+        {pageNumber === 3 && (
+          <div className="flex flex-col h-full font-sans">
+            <div className="border-b-4 border-double border-black pb-3 mb-4">
+              <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">SYSTEM ARCHITECTURE SCHEMATIC</h3>
+              <p className="font-bold text-sm tracking-widest text-red-700">AUTHORIZATION CODE: DELTA-9</p>
+            </div>
+            
+            <p className="font-bold text-[14px] leading-snug border-l-4 border-black pl-3 mb-4 text-stone-900">
+              The blueprint of operations. A highly structured breakdown of the primary development stack and architectural components used by Meenakshi to dismantle chaos and deploy order.
+            </p>
+
+            <div className="flex-grow w-full bg-[#1a1c23] border-4 border-black flex items-center justify-center overflow-hidden relative shadow-xl mb-4 rounded-sm">
+               <img src="/system_blueprint.png" alt="Classified System Blueprint" className="absolute inset-0 w-full h-full object-cover object-center" />
+               <div className="absolute inset-0 border-4 border-black/20 mix-blend-overlay pointer-events-none" />
+            </div>
+
+            <div className="bg-stone-200 border-t-2 border-b-2 border-black py-2 px-3 text-sm font-mono text-stone-800 shadow-sm">
+              <span className="font-bold text-red-700">NOTE:</span> The visual data represented here is highly sensitive. Only authorized personnel may access the full repository logic.
+            </div>
+          </div>
+        )}
       </div>
     </div>
     <div className="mt-8 text-left font-mono text-base font-bold text-black border-t-2 border-black pt-4">
@@ -240,10 +266,9 @@ const LeftPageContent = ({ pageData, pageNumber }: any) => (
 );
 
 /* --- RIGHT PAGE COMPONENT --- */
-const RightPageContent = ({ pageData, pageNumber, onNext, onPrev, isLast }: any) => (
+const RightPageContent = ({ pageNumber, onNext, onPrev, isLast }: any) => (
   <div 
-    className="w-full h-full bg-[#f4f1ea] p-12 overflow-hidden flex flex-col justify-between"
-    style={{ backgroundImage: 'radial-gradient(#d1d1d1 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }}
+    className="w-full h-full bg-transparent p-12 overflow-hidden flex flex-col justify-between"
   >
     <div className="prose prose-stone flex-grow flex flex-col">
       <p className="uppercase text-[10px] tracking-widest font-sans font-bold text-stone-500 mb-2">Evidence Folder</p>
@@ -254,12 +279,12 @@ const RightPageContent = ({ pageData, pageNumber, onNext, onPrev, isLast }: any)
           </div>
           <div className="flex flex-col justify-between h-full">
             <div>
-              <h3 className="text-4xl font-black uppercase tracking-tighter mb-3 border-b-4 border-black pb-2 text-black drop-shadow-sm">THE ARCHITECT OF ORDER</h3>
-              <p className="font-bold text-xl leading-snug border-l-4 border-black pl-4 mb-5 text-stone-900 drop-shadow-sm">
+              <h3 className="text-4xl font-black uppercase tracking-tighter mb-3 border-b-4 border-black pb-2 text-black">THE ARCHITECT OF ORDER</h3>
+              <p className="font-bold text-xl leading-snug border-l-4 border-black pl-4 mb-5 text-stone-900">
                 Tracking the movements of Meenakshi Karnataka—the developer who solves system failures before they become crimes.
               </p>
               
-              <div className="text-justify text-lg text-stone-900 font-bold leading-relaxed space-y-4 drop-shadow-sm">
+              <div className="text-justify text-lg text-stone-900 font-bold leading-relaxed space-y-4">
                 <p className="first-letter:text-6xl first-letter:font-black first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] first-letter:text-black">
                   In a city drowning in chaotic code and unorganized data, one operative stands out. Meenakshi isn't just a developer; she's a forensic specialist for the digital age. 
                 </p>
@@ -284,7 +309,7 @@ const RightPageContent = ({ pageData, pageNumber, onNext, onPrev, isLast }: any)
              <img src="/coding_evidence_board.png" alt="Coding Evidence Board" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           <div className="flex flex-col flex-grow h-full overflow-hidden">
-            <h3 className="text-4xl font-black uppercase tracking-tighter mb-2 border-b-4 border-black pb-2 text-black drop-shadow-sm">THE EVIDENCE BOARD</h3>
+            <h3 className="text-4xl font-black uppercase tracking-tighter mb-2 border-b-4 border-black pb-2 text-black">THE EVIDENCE BOARD</h3>
             <p className="font-bold text-lg uppercase tracking-widest text-red-700 mb-4">WORK EXPERIENCE DOSSIER</p>
             
             <div className="space-y-4 text-stone-900 font-medium">
@@ -339,7 +364,7 @@ const RightPageContent = ({ pageData, pageNumber, onNext, onPrev, isLast }: any)
              <img src="/tactical_operator.png" alt="Tactical Operations Interface" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           <div className="flex flex-col flex-grow h-full overflow-hidden">
-            <h3 className="text-3xl font-black uppercase tracking-tighter mb-1 border-b-4 border-black pb-1 text-black drop-shadow-sm">THE CASE FILES (PROJECTS)</h3>
+            <h3 className="text-3xl font-black uppercase tracking-tighter mb-1 border-b-4 border-black pb-1 text-black">THE CASE FILES (PROJECTS)</h3>
             
             <div className="space-y-3 mt-2 text-stone-900 font-medium">
               {/* CASE 1 */}
