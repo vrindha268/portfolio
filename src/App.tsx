@@ -1,4 +1,3 @@
-import React from 'react';
 import MagazinePortfolio from './MagazinePortfolio';
 
 function App() {
