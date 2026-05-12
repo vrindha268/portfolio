@@ -96,7 +96,7 @@ const MagazinePortfolio = () => {
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translateZ(1px)' }}
               >
                 {/* Aged paper texture overlay under the content */}
-                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('/aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('./aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/5 via-transparent to-transparent" />
                 <div className="relative z-10 w-full h-full">{sheet.front}</div>
               </div>
@@ -106,7 +106,7 @@ const MagazinePortfolio = () => {
                 style={{ transform: 'rotateY(180deg) translateZ(1px)', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 {/* Aged paper texture overlay under the content */}
-                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('/aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+                <div className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-50" style={{ backgroundImage: "url('./aged_paper.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-l from-black/5 via-white/20 to-white/40" />
                 <div className="relative z-10 w-full h-full">{sheet.back}</div>
               </div>
@@ -126,7 +126,7 @@ const CoverPage = ({ onOpen }: { onOpen: () => void }) => (
     <div 
       className="absolute inset-0 z-0 opacity-70 mix-blend-darken"
       style={{
-        backgroundImage: 'url(/noir_tech_portrait.png)',
+        backgroundImage: 'url(./noir_tech_portrait.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center 20%',
       }}
@@ -248,7 +248,7 @@ const LeftPageContent = ({ pageData, pageNumber }: any) => (
             </p>
 
             <div className="flex-grow w-full bg-[#1a1c23] border-4 border-black flex items-center justify-center overflow-hidden relative shadow-xl mb-4 rounded-sm">
-               <img src="/system_blueprint.png" alt="Classified System Blueprint" className="absolute inset-0 w-full h-full object-cover object-center" />
+               <img src="./system_blueprint.png" alt="Classified System Blueprint" className="absolute inset-0 w-full h-full object-cover object-center" />
                <div className="absolute inset-0 border-4 border-black/20 mix-blend-overlay pointer-events-none" />
             </div>
 
@@ -275,7 +275,7 @@ const RightPageContent = ({ pageNumber, onNext, onPrev, isLast }: any) => (
       {pageNumber === 1 ? (
         <>
           <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-6 shadow-xl shrink-0">
-             <img src="/color_detective_alley.png" alt="Color Noir Detective Lead Investigator" className="absolute inset-0 w-full h-full object-cover object-center" />
+             <img src="./color_detective_alley.png" alt="Color Noir Detective Lead Investigator" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           <div className="flex flex-col justify-between h-full">
             <div>
@@ -306,7 +306,7 @@ const RightPageContent = ({ pageNumber, onNext, onPrev, isLast }: any) => (
       ) : pageNumber === 2 ? (
         <>
           <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-6 shadow-xl shrink-0">
-             <img src="/coding_evidence_board.png" alt="Coding Evidence Board" className="absolute inset-0 w-full h-full object-cover object-center" />
+             <img src="./coding_evidence_board.png" alt="Coding Evidence Board" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           <div className="flex flex-col flex-grow h-full overflow-hidden">
             <h3 className="text-4xl font-black uppercase tracking-tighter mb-2 border-b-4 border-black pb-2 text-black">THE EVIDENCE BOARD</h3>
@@ -361,7 +361,7 @@ const RightPageContent = ({ pageNumber, onNext, onPrev, isLast }: any) => (
       ) : pageNumber === 3 ? (
         <>
           <div className="h-[200px] w-full bg-black border-4 border-black flex items-center justify-center text-stone-500 overflow-hidden relative mb-4 shadow-xl shrink-0">
-             <img src="/tactical_operator.png" alt="Tactical Operations Interface" className="absolute inset-0 w-full h-full object-cover object-center" />
+             <img src="./tactical_operator.png" alt="Tactical Operations Interface" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           <div className="flex flex-col flex-grow h-full overflow-hidden">
             <h3 className="text-3xl font-black uppercase tracking-tighter mb-1 border-b-4 border-black pb-1 text-black">THE CASE FILES (PROJECTS)</h3>
